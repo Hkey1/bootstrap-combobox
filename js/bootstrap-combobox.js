@@ -25,10 +25,12 @@
 
   var Combobox = function ( element, options ) {
     this.options = $.extend({}, $.fn.combobox.defaults, options);
-    this.template = this.options.template || this.template
+    this.template = this.options.template || this.template;
+	
     this.$source = $(element);
     this.$container = this.setup();
     this.$element = this.$container.find('input[type=text]');
+	
     this.$target = this.$container.find('input[type=hidden]');
     this.$button = this.$container.find('.dropdown-toggle');
     this.$menu = $(this.options.menu).appendTo('body');
@@ -40,6 +42,9 @@
     this.refresh();
     this.transferAttributes();
     this.listen();
+	
+	
+
   };
 
   Combobox.prototype = {
@@ -130,16 +135,21 @@
 
   , show: function () {
       var pos = $.extend({}, this.$element.position(), {
-        height: this.$element[0].offsetHeight
+        height: this.$element[0].offsetHeight,
+		width: this.$element[0].offsetWidth
       });
 
-      this.$menu
-        .insertAfter(this.$element)
-        .css({
+      var el=this.$menu.insertAfter(this.$element);
+      el.css({
           top: pos.top + pos.height
         , left: pos.left
-        })
-        .show();
+		, 'margin-top': 0	
+      });
+		
+	  if(this.options.fullWidth && pos.width){
+		el.css({'width': pos.width});
+	  }
+      el.show();
 
       $('.dropdown-menu').on('mousedown', $.proxy(this.scrollSafety, this));
 
@@ -306,6 +316,10 @@
 
       this.$button
         .on('click', $.proxy(this.toggle, this));
+	  if(this.options.showOnClick){
+		this.$element
+			.on('click', $.proxy(this.lookup, this));
+	  }	
     }
 
   , eventSupported: function(eventName) {
@@ -455,6 +469,8 @@
     bsVersion: '3'
   , menu: '<ul class="typeahead typeahead-long dropdown-menu"></ul>'
   , item: '<li><a href="#"></a></li>'
+  , 'showOnClick': true
+  , 'fullWidth': true
   };
 
   $.fn.combobox.Constructor = Combobox;

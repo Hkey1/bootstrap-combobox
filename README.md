@@ -1,6 +1,7 @@
-# Bootstrap Combobox
+# Bootstrap Combobox (Hkey - patched)
 
-We had need of a combobox at work and after looking around at the available options I was not happy with any of them.  The project had all it's styling based on Twitter's Bootstrap, so building on that made sense.
+## Changes
+Usability fixes
 
 ## How to install it
 
@@ -65,7 +66,10 @@ When activating the plugin, you may include an object containing options for the
  `bsVersion`: Version of bootstrap being used. This is used by the default `template` function to generate markup correctly. Defaults to '3'. Set to '2' for compatibility with Bootstrap 2
 
  `appendId`: The desired id of the transformed combobox. This will become the id attr and can be mapped to a label using the for attribute. Useful for accessibility.
+ 
+ `showOnClick` NEW: true/false show menu when user clicks input
 
+  `fullWidth` NEW: true/false menu width = input width
 
 ## Dependencies
 Uses the latest 1.X version of jQuery and the latest 2.X or 3.X of bootstrap.
